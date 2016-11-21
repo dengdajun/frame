@@ -1,0 +1,8 @@
+#java compile
+*.class
+*.war
+*.jar
+#maven output dir
+/target
+#idea temp dir
+/.idea
