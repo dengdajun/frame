@@ -13,6 +13,23 @@
     <project-encoding>UTF-8</project-encoding>
     <spring-version>4.3.4.RELEASE</spring-version>
   </properties>
+  <profiles>
+    <profile>
+      <id>product</id>
+      <properties>
+        <profile-env>product</profile-env>
+      </properties>
+    </profile>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <profile-env>dev</profile-env>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencies>
     <!--<dependency>-->
@@ -52,6 +69,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+          <webResources>
+            <resource>
+              <directory>environment/${profile-env}</directory>
+              <targetPath>WEB-INF/classes</targetPath>
+              <filtering>true</filtering>
+            </resource>
+          </webResources>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -59,6 +89,7 @@
       </plugin>
     </plugins>
   </build>
+
   <repositories>
     <repository>
       <id>maven.net.cn</id>
